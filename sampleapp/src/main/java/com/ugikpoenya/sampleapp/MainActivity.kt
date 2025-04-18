@@ -2,13 +2,13 @@ package com.ugikpoenya.sampleapp
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ugikpoenya.servermanager.ServerManager
-import com.ugikpoenya.servermanager.model.ApiResponseModel
-import com.ugikpoenya.servermanager.model.PostModel
 
 class MainActivity : AppCompatActivity() {
     val LOG = "LOG_SERVER_SAMPLE"
@@ -36,20 +36,19 @@ class MainActivity : AppCompatActivity() {
         val admob_rewarded_ads = serverManager.getItemKey(this, "admob_rewarded_ads")
         Log.d(LOG, admob_rewarded_ads.toString())
 
+    }
+
+    fun getPostResponse(view: View) {
+        Log.d(LOG, "getPostResponse")
         serverManager.getPostsResponse(this) { response ->
-            var sampleKey: String? = null
             response?.forEach {
-                Log.d(LOG, it.post_title.toString())
-                sampleKey = it.key
-            }
-            if (!sampleKey.isNullOrEmpty()) {
-                serverManager.getPostKey(this, sampleKey.toString()) { postModel ->
-                    Log.d(LOG, postModel?.post_content.toString())
-                }
+                Log.d(LOG, it.key.toString() + " => " + it.post_title.toString() + " => " + it.post_image.toString())
             }
         }
+    }
 
-
+    fun getCategoriesResponse(view: View) {
+        Log.d(LOG, "getCategoriesResponse")
         serverManager.getCategoriesResponse(this) { response ->
             var sampleKey: String? = null
             response?.forEach {
@@ -58,15 +57,19 @@ class MainActivity : AppCompatActivity() {
             }
 
             if (!sampleKey.isNullOrEmpty()) {
+                Log.d(LOG, "getCategoryKey : $sampleKey")
                 serverManager.getCategoryKey(this, sampleKey.toString()) { postModelArrayList ->
                     postModelArrayList?.forEach { postModel ->
-                        Log.d(LOG, postModel.post_title.toString())
+                        Log.d(LOG, postModel.key.toString() + " => " + postModel.post_title.toString() + " => " + postModel.post_image.toString())
                     }
 
                 }
             }
         }
+    }
 
+    fun getAssetsResponse(view: View) {
+        Log.d(LOG, "getAssetsResponse")
         serverManager.getAssetsResponse(this) { files, folders ->
             Log.d(LOG, "files : " + files?.size.toString())
             Log.d(LOG, "folders : " + folders?.size.toString())
