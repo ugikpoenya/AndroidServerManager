@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.ugikpoenya.servermanager"
+    namespace = "com.ugikpoenya.sampleapp"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.ugikpoenya.servermanager"
+        applicationId = "com.ugikpoenya.sampleapp"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

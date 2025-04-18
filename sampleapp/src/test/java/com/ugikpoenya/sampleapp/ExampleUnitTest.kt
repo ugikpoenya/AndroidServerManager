@@ -1,4 +1,4 @@
-package com.ugikpoenya.servermanager
+package com.ugikpoenya.sampleapp
 
 import org.junit.Test
 
