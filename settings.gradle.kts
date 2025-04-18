@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Server Manager"
 include(":app")
+include(":servermanager")
