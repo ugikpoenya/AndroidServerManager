@@ -6,6 +6,10 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.ugikpoenya.servermanager.model.ApiResponseModel
+import com.ugikpoenya.servermanager.model.CategoryModel
+import com.ugikpoenya.servermanager.model.CategoryResponseModel
+import com.ugikpoenya.servermanager.model.PostModel
+import com.ugikpoenya.servermanager.model.PostResponseModel
 import org.json.JSONObject
 
 class ServerManager {
@@ -59,5 +63,104 @@ class ServerManager {
             Log.d(LOG, "Error : " + e.message)
             return null
         }
+    }
+
+
+    //POST MODULE
+    fun getPostsResponse(context: Context, function: (postModelArrayList: ArrayList<PostModel>?) -> (Unit)) {
+        val queue = Volley.newRequestQueue(context)
+        val stringRequest = object : StringRequest(Method.GET, ServerPrefs(context).BASE_URL + "/posts", com.android.volley.Response.Listener { response ->
+            try {
+                val postResponse = Gson().fromJson(response, PostResponseModel::class.java)
+                function(postResponse.data)
+            } catch (e: Exception) {
+                Log.d("LOG", "Error : " + e.message)
+                function(null)
+            }
+        }, com.android.volley.Response.ErrorListener {
+            Log.d("LOG", "Error : " + it.message)
+            function(null)
+        }) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["package_name"] = context.packageName
+                headers["api_key"] = ServerPrefs(context).API_KEY
+                return headers
+            }
+        }
+        queue.add(stringRequest)
+    }
+
+    fun getPostKey(context: Context, key: String, function: (postModel: PostModel?) -> (Unit)) {
+        val queue = Volley.newRequestQueue(context)
+        val stringRequest = object : StringRequest(Method.GET, ServerPrefs(context).BASE_URL + "/posts/" + key, com.android.volley.Response.Listener { response ->
+            try {
+                val postResponse = Gson().fromJson(response, PostResponseModel::class.java)
+                function(postResponse.post)
+            } catch (e: Exception) {
+                Log.d("LOG", "Error : " + e.message)
+                function(null)
+            }
+        }, com.android.volley.Response.ErrorListener {
+            Log.d("LOG", "Error : " + it.message)
+            function(null)
+        }) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["package_name"] = context.packageName
+                headers["api_key"] = ServerPrefs(context).API_KEY
+                return headers
+            }
+        }
+        queue.add(stringRequest)
+    }
+
+    //POST MODULE
+    fun getCategoriesResponse(context: Context, function: (categoryModelArrayList: ArrayList<CategoryModel>?) -> (Unit)) {
+        val queue = Volley.newRequestQueue(context)
+        val stringRequest = object : StringRequest(Method.GET, ServerPrefs(context).BASE_URL + "/categories", com.android.volley.Response.Listener { response ->
+            try {
+                val postResponse = Gson().fromJson(response, CategoryResponseModel::class.java)
+                function(postResponse.data)
+            } catch (e: Exception) {
+                Log.d("LOG", "Error : " + e.message)
+                function(null)
+            }
+        }, com.android.volley.Response.ErrorListener {
+            Log.d("LOG", "Error : " + it.message)
+            function(null)
+        }) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["package_name"] = context.packageName
+                headers["api_key"] = ServerPrefs(context).API_KEY
+                return headers
+            }
+        }
+        queue.add(stringRequest)
+    }
+
+    fun getCategoryKey(context: Context, key: String, function: (postModelArrayList: ArrayList<PostModel>?) -> (Unit)) {
+        val queue = Volley.newRequestQueue(context)
+        val stringRequest = object : StringRequest(Method.GET, ServerPrefs(context).BASE_URL + "/categories/" + key, com.android.volley.Response.Listener { response ->
+            try {
+                val postResponse = Gson().fromJson(response, PostResponseModel::class.java)
+                function(postResponse.data)
+            } catch (e: Exception) {
+                Log.d("LOG", "Error : " + e.message)
+                function(null)
+            }
+        }, com.android.volley.Response.ErrorListener {
+            Log.d("LOG", "Error : " + it.message)
+            function(null)
+        }) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["package_name"] = context.packageName
+                headers["api_key"] = ServerPrefs(context).API_KEY
+                return headers
+            }
+        }
+        queue.add(stringRequest)
     }
 }

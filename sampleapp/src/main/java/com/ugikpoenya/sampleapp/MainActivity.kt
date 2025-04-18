@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ugikpoenya.servermanager.ServerManager
 import com.ugikpoenya.servermanager.model.ApiResponseModel
+import com.ugikpoenya.servermanager.model.PostModel
 
 class MainActivity : AppCompatActivity() {
     val LOG = "LOG_SERVER_SAMPLE"
@@ -23,9 +24,9 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        serverManager.setBaseUrl(this, "https://asia-southeast1-project-bangau.cloudfunctions.net/cms/api");
-        serverManager.setApiKey(this, "DA8BB129F7C1ED5BD07046961C995A77");
-        serverManager.getApiResponse(this) { response: ApiResponseModel? ->
+        serverManager.setBaseUrl(this, "https://asia-southeast1-project-bangau.cloudfunctions.net/cms/api")
+        serverManager.setApiKey(this, "DA8BB129F7C1ED5BD07046961C995A77")
+        serverManager.getApiResponse(this) { response ->
             Log.d(LOG, response?.name.toString())
             response?.categories?.forEach {
                 Log.d(LOG, it.category.toString())
@@ -34,5 +35,36 @@ class MainActivity : AppCompatActivity() {
 
         val admob_rewarded_ads = serverManager.getItemKey(this, "admob_rewarded_ads")
         Log.d(LOG, admob_rewarded_ads.toString())
+
+        serverManager.getPostsResponse(this) { response ->
+            var sampleKey: String? = null
+            response?.forEach {
+                Log.d(LOG, it.post_title.toString())
+                sampleKey = it.key
+            }
+            if (!sampleKey.isNullOrEmpty()) {
+                serverManager.getPostKey(this, sampleKey.toString()) { postModel ->
+                    Log.d(LOG, postModel?.post_content.toString())
+                }
+            }
+        }
+
+
+        serverManager.getCategoriesResponse(this) { response ->
+            var sampleKey: String? = null
+            response?.forEach {
+                Log.d(LOG, it.category.toString())
+                sampleKey = it.category_key
+            }
+
+            if (!sampleKey.isNullOrEmpty()) {
+                serverManager.getCategoryKey(this, sampleKey.toString()) { postModelArrayList ->
+                    postModelArrayList?.forEach { postModel ->
+                        Log.d(LOG, postModel.post_title.toString())
+                    }
+
+                }
+            }
+        }
     }
 }
