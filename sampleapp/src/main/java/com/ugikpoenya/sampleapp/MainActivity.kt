@@ -10,6 +10,7 @@ import com.ugikpoenya.servermanager.ServerManager
 import com.ugikpoenya.servermanager.model.ApiResponseModel
 
 class MainActivity : AppCompatActivity() {
+    val LOG = "LOG_SERVER_SAMPLE"
     val serverManager = ServerManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,12 +26,13 @@ class MainActivity : AppCompatActivity() {
         serverManager.setBaseUrl(this, "https://asia-southeast1-project-bangau.cloudfunctions.net/cms/api");
         serverManager.setApiKey(this, "DA8BB129F7C1ED5BD07046961C995A77");
         serverManager.getApiResponse(this) { response: ApiResponseModel? ->
-            Log.d("LOG_SERVER", response?.name.toString())
+            Log.d(LOG, response?.name.toString())
             response?.categories?.forEach {
-                Log.d("LOG_SERVER", it.category.toString())
+                Log.d(LOG, it.category.toString())
             }
         }
 
-
+        val admob_rewarded_ads = serverManager.getItemKey(this, "admob_rewarded_ads")
+        Log.d(LOG, admob_rewarded_ads.toString())
     }
 }

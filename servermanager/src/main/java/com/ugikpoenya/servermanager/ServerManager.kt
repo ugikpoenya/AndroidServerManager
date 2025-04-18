@@ -6,6 +6,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.ugikpoenya.servermanager.model.ApiResponseModel
+import org.json.JSONObject
 
 class ServerManager {
     val LOG = "LOG_SERVER"
@@ -46,6 +47,17 @@ class ServerManager {
                 }
             }
             queue.add(stringRequest)
+        }
+    }
+
+    fun getItemKey(context: Context, key: String): String? {
+        try {
+            val jsonObject = JSONObject(ServerPrefs(context).RESPONSE)
+            val item = jsonObject.getJSONObject("item")
+            return item.getString(key.trim())
+        } catch (e: Exception) {
+            Log.d(LOG, "Error : " + e.message)
+            return null
         }
     }
 }
