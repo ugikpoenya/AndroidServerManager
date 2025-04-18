@@ -66,5 +66,19 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        serverManager.getAssetsResponse(this) { files, folders ->
+            Log.d(LOG, "files : " + files?.size.toString())
+            Log.d(LOG, "folders : " + folders?.size.toString())
+            files?.forEach { filename ->
+                Log.d(LOG, filename)
+            }
+            folders?.forEach {
+                Log.d(LOG, it.key)
+                it.value.forEach { filename ->
+                    Log.d(LOG, filename)
+                }
+            }
+        }
     }
 }

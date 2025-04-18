@@ -6,6 +6,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.ugikpoenya.servermanager.model.ApiResponseModel
+import com.ugikpoenya.servermanager.model.AssetResponseModel
 import com.ugikpoenya.servermanager.model.CategoryModel
 import com.ugikpoenya.servermanager.model.CategoryResponseModel
 import com.ugikpoenya.servermanager.model.PostModel
@@ -115,7 +116,7 @@ class ServerManager {
         queue.add(stringRequest)
     }
 
-    //POST MODULE
+    //Category MODULE
     fun getCategoriesResponse(context: Context, function: (categoryModelArrayList: ArrayList<CategoryModel>?) -> (Unit)) {
         val queue = Volley.newRequestQueue(context)
         val stringRequest = object : StringRequest(Method.GET, ServerPrefs(context).BASE_URL + "/categories", com.android.volley.Response.Listener { response ->
@@ -153,6 +154,32 @@ class ServerManager {
         }, com.android.volley.Response.ErrorListener {
             Log.d("LOG", "Error : " + it.message)
             function(null)
+        }) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["package_name"] = context.packageName
+                headers["api_key"] = ServerPrefs(context).API_KEY
+                return headers
+            }
+        }
+        queue.add(stringRequest)
+    }
+
+
+    //Assets module
+    fun getAssetsResponse(context: Context, function: (files: ArrayList<String>?, folders: Map<String, ArrayList<String>>?) -> (Unit)) {
+        val queue = Volley.newRequestQueue(context)
+        val stringRequest = object : StringRequest(Method.GET, ServerPrefs(context).BASE_URL + "/assets", com.android.volley.Response.Listener { response ->
+            try {
+                val postResponse = Gson().fromJson(response, AssetResponseModel::class.java)
+                function(postResponse.files, postResponse.folders)
+            } catch (e: Exception) {
+                Log.d("LOG", "Error : " + e.message)
+                function(null, null)
+            }
+        }, com.android.volley.Response.ErrorListener {
+            Log.d("LOG", "Error : " + it.message)
+            function(null, null)
         }) {
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()
