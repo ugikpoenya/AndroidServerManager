@@ -4,9 +4,11 @@ import android.content.Context
 import android.util.Log
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.google.gson.Gson
+import com.ugikpoenya.servermanager.model.ApiResponseModel
 
 class ServerManager {
-    val LOG="LOG_SERVER"
+    val LOG = "LOG_SERVER"
     fun setBaseUrl(context: Context, base_url: String) {
         ServerPrefs(context).BASE_URL = base_url
     }
@@ -15,7 +17,7 @@ class ServerManager {
         ServerPrefs(context).API_KEY = api_key
     }
 
-    fun getApiResponse(context: Context, function: (response: String?) -> (Unit)) {
+    fun getApiResponse(context: Context, function: (apiResponseModel: ApiResponseModel?) -> (Unit)) {
         if (ServerPrefs(context).BASE_URL.isEmpty()) {
             Log.d(LOG, "Base url not found")
             function(null)
@@ -25,7 +27,9 @@ class ServerManager {
                 try {
                     Log.d(LOG, "getItem successfully")
                     ServerPrefs(context).RESPONSE = response
-                    function(response)
+                    Log.d("LOG_SERVER", response)
+                    val apiResponseModel = Gson().fromJson(response, ApiResponseModel::class.java)
+                    function(apiResponseModel)
                 } catch (e: Exception) {
                     Log.d(LOG, "Error : " + e.message)
                     function(null)

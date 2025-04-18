@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ugikpoenya.servermanager.ServerManager
+import com.ugikpoenya.servermanager.model.ApiResponseModel
 
 class MainActivity : AppCompatActivity() {
     val serverManager = ServerManager()
@@ -21,10 +22,13 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        serverManager.setBaseUrl(this, "https://master.ugikpoenya.net/api/");
-        serverManager.setApiKey(this, "DA8BB129F7C1ED5BD07046961C995A77s");
-        serverManager.getApiResponse(this) { response: String? ->
-            Log.d("LOG_SERVER", response.toString())
+        serverManager.setBaseUrl(this, "https://asia-southeast1-project-bangau.cloudfunctions.net/cms/api");
+        serverManager.setApiKey(this, "DA8BB129F7C1ED5BD07046961C995A77");
+        serverManager.getApiResponse(this) { response: ApiResponseModel? ->
+            Log.d("LOG_SERVER", response?.name.toString())
+            response?.categories?.forEach {
+                Log.d("LOG_SERVER", it.category.toString())
+            }
         }
 
 
