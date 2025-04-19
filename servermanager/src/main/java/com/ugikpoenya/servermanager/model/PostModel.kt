@@ -1,8 +1,9 @@
 package com.ugikpoenya.servermanager.model
 
+import com.ugikpoenya.servermanager.tools.HtmlListParser
 import java.io.Serializable
 
-class PostModel: Serializable {
+class PostModel : Serializable {
     var key: String? = null
     var post_title: String? = null
     var post_content: String? = null
@@ -15,4 +16,8 @@ class PostModel: Serializable {
 
     var storage_key: String? = null
     var storage_folder: String? = null
+
+    fun getContentList(): List<ListItem> {
+        return HtmlListParser().parse(post_content.toString())
+    }
 }
