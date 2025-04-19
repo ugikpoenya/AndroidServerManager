@@ -2,12 +2,14 @@ package com.ugikpoenya.servermanager.model
 
 import java.io.Serializable
 
-val DEFAULT_NATIVE_START = 2
-val DEFAULT_NATIVE_INTERVAL = 8
-val DEFAULT_INTERSTITIAL_INTERVAL = 0
-var DEFAULT_PRIORITY = "0,1,2,3"
 
 class ItemModel : Serializable {
+    val DEFAULT_NATIVE_START = 2
+    val DEFAULT_NATIVE_INTERVAL = 8
+    val DEFAULT_INTERSTITIAL_INTERVAL = 0
+    var DEFAULT_PRIORITY = "0,1,2,3"
+
+
     var more_app: String = ""
     var privacy_policy: String = ""
     var asset_folder: String = ""
