@@ -2,6 +2,10 @@ package com.ugikpoenya.servermanager
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
+import com.google.gson.Gson
+import com.ugikpoenya.servermanager.model.ApiResponseModel
+import com.ugikpoenya.servermanager.model.ItemModel
 
 class ServerPrefs(context: Context) {
     val prefs: SharedPreferences = context.getSharedPreferences(context.packageName, 0)
@@ -14,4 +18,15 @@ class ServerPrefs(context: Context) {
     var RESPONSE: String
         get() = prefs.getString("RESPONSE", "").toString()
         set(value) = prefs.edit().putString("RESPONSE", value).apply()
+
+    fun getItemModel(): ItemModel? {
+        return try {
+            val response = prefs.getString("RESPONSE", "").toString()
+            val apiResponseModel = Gson().fromJson(response, ApiResponseModel::class.java)
+            apiResponseModel.item
+        } catch (e: Exception) {
+            Log.d("LOG_SERVER_PREFS", "Error : " + e.message)
+            null
+        }
+    }
 }
