@@ -36,6 +36,7 @@ dependencies {
     implementation(libs.material)
     implementation ("com.android.volley:volley:1.2.1")
     implementation ("com.google.code.gson:gson:2.10.1")
+    implementation ("org.jsoup:jsoup:1.17.2")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

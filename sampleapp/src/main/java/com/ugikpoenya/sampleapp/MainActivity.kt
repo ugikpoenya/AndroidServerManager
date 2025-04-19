@@ -3,12 +3,12 @@ package com.ugikpoenya.sampleapp
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ugikpoenya.servermanager.ServerManager
+import com.ugikpoenya.servermanager.tools.HtmlListParser
 
 class MainActivity : AppCompatActivity() {
     val LOG = "LOG_SERVER_SAMPLE"
@@ -81,6 +81,26 @@ class MainActivity : AppCompatActivity() {
                 it.value.forEach { filename ->
                     Log.d(LOG, filename)
                 }
+            }
+        }
+    }
+
+    fun getPostKey(view: View) {
+        val key = "EAXPhBxVnYmm8PLi8Hof"
+        Log.d(LOG, "getPostKey $key")
+        serverManager.getPostKey(this, key) { postModel ->
+            Log.d(LOG, postModel?.key.toString() + " => " + postModel?.post_title.toString() + " => " + postModel?.post_image.toString())
+            Log.d(LOG, postModel?.post_content.toString())
+
+            val list = postModel?.getContentList()
+            list?.forEach {
+                Log.d(LOG, it.text)
+                it.children.forEach { itemData ->
+                    Log.d(LOG, "-" + itemData.text)
+                }
+            }
+            if (list !== null) {
+                HtmlListParser().print(list)
             }
         }
     }

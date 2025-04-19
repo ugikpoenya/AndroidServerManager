@@ -35,6 +35,12 @@
                 android:onClick="getAssetsResponse"
                 android:text="getAssetsResponse" />
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="getPostKey"
+                android:text="getPostKey" />
+
         </LinearLayout>
     </ScrollView>
 
