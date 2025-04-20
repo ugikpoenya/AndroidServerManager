@@ -3,13 +3,20 @@ package com.ugikpoenya.servermanager
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.text.method.LinkMovementMethod
 import android.util.Log
+import android.view.View.GONE
 import android.view.Window
 import android.view.WindowManager
+import android.webkit.URLUtil
 import android.webkit.WebView
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.net.toUri
 
 class AppManager {
     val LOG = "LOG_SERVER_APP"
@@ -21,6 +28,7 @@ class AppManager {
             Log.d(LOG, "Privacy policy decline")
             showPrivacyPolicy(context)
         }
+        initDialogRedirect(context)
     }
 
     fun exitApp(context: Context) {
@@ -88,4 +96,66 @@ class AppManager {
         dialog.show()
         dialog.window?.attributes = lp
     }
+
+    fun initDialogRedirect(context: Context) {
+        val itemModel = ServerPrefs(context).getItemModel()
+        if (itemModel !== null && itemModel.redirect_url.isNotEmpty() && URLUtil.isValidUrl(itemModel.redirect_url)) {
+            val uri = itemModel.redirect_url.toUri()
+            val id = uri.getQueryParameter("id")
+
+            if (!id.isNullOrEmpty()) {
+                val dialog = Dialog(context)
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE) // before
+                dialog.setContentView(R.layout.dialog_redirect)
+                if (itemModel.redirect_cancelable) dialog.setCancelable(true)
+                else dialog.setCancelable(false)
+
+                val lp = WindowManager.LayoutParams()
+                lp.copyFrom(dialog.window?.attributes)
+                lp.width = WindowManager.LayoutParams.MATCH_PARENT
+                lp.height = WindowManager.LayoutParams.WRAP_CONTENT
+
+                if (itemModel.redirect_image_url.isEmpty()) {
+                    (dialog.findViewById<ImageView>(R.id.imageView)!!).visibility = GONE
+                } else {
+                    //Picasso.get().load(Prefs(context).ITEM_MODEL.redirect_image_url).resize(50, 50).centerCrop().into((dialog.findViewById(R.id.imageView) as ImageView))
+                }
+
+                (dialog.findViewById<TextView>(R.id.txtTitle)!!).text = itemModel.redirect_title
+                (dialog.findViewById<TextView>(R.id.txtContent)!!).text = itemModel.redirect_content
+
+                val btnUpdate = dialog.findViewById(R.id.btnUpdate) as Button
+                val intent = (context as Activity).packageManager.getLaunchIntentForPackage(id)
+
+                if (intent == null) {
+                    btnUpdate.text = itemModel.redirect_button
+                } else {
+                    btnUpdate.text = "Open"
+                }
+
+                (dialog.findViewById<Button>(R.id.btnUpdate)!!).setOnClickListener {
+                    if (intent == null) {
+                        Log.d("LOG", "Open URL " + itemModel.redirect_url)
+                        context.startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW, itemModel.redirect_url.toUri()
+                            )
+                        )
+                    } else {
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        context.startActivity(intent)
+                    }
+                }
+                (dialog.findViewById<Button>(R.id.btnClose)!!).setOnClickListener {
+                    dialog.dismiss()
+                    if (!itemModel.redirect_cancelable) {
+                        context.finish()
+                    }
+                }
+                dialog.show()
+                dialog.window?.attributes = lp
+            }
+        }
+    }
+
 }

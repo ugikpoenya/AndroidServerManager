@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun exitApp(view: View) {
-
         Log.d(LOG, "exitApp")
         AppManager().exitApp(this)
     }
@@ -51,6 +50,10 @@ class MainActivity : AppCompatActivity() {
     fun showPrivacyPolicy(view: View) {
         Log.d(LOG, "showPrivacyPolicy")
         AppManager().showPrivacyPolicy(this)
+    }
+    fun initDialogRedirect(view: View) {
+        Log.d(LOG, "initDialogRedirect")
+        AppManager().initDialogRedirect(this)
     }
 
     fun getApiResponse(view: View) {
