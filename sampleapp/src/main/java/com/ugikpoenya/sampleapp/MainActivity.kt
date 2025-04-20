@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
 
         serverManager.setBaseUrl(this, "https://asia-southeast1-project-bangau.cloudfunctions.net/cms/api")
         serverManager.setApiKey(this, "DA8BB129F7C1ED5BD07046961C995A77")
+
+        Log.d(LOG, "getApiResponse")
         serverManager.getApiResponse(this) { response ->
             Log.d(LOG, response?.name.toString())
             response?.categories?.forEach {
@@ -36,6 +38,16 @@ class MainActivity : AppCompatActivity() {
         val admob_rewarded_ads = serverManager.getItemKey(this, "admob_rewarded_ads")
         Log.d(LOG, admob_rewarded_ads.toString())
 
+    }
+
+    fun getApiResponse(view: View) {
+        Log.d(LOG, "getApiResponse")
+        serverManager.getApiResponse(this) { response ->
+            Log.d(LOG, response?.name.toString())
+            response?.categories?.forEach {
+                Log.d(LOG, it.category.toString())
+            }
+        }
     }
 
     fun getPostResponse(view: View) {

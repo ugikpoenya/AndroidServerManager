@@ -6,31 +6,27 @@ import java.io.Serializable
 class ItemModel : Serializable {
     val DEFAULT_NATIVE_START = 2
     val DEFAULT_NATIVE_INTERVAL = 8
+    val DEFAULT_INTERSTITIAL_DELAY = 0
+    val DEFAULT_INTERSTITIAL_DELAY_FIRST = 0
     val DEFAULT_INTERSTITIAL_INTERVAL = 0
     var DEFAULT_PRIORITY = "0,1,2,3"
 
+    //  Application Key
+    var interstitial_delay: Int = DEFAULT_INTERSTITIAL_DELAY
+    var interstitial_delay_first: Int = DEFAULT_INTERSTITIAL_DELAY_FIRST
+    var interstitial_priority: String = DEFAULT_PRIORITY
+    var interstitial_interval: Int = DEFAULT_INTERSTITIAL_INTERVAL
 
-    var more_app: String = ""
     var privacy_policy: String = ""
+    var more_app: String = ""
+
+    var native_start: Int = DEFAULT_NATIVE_START
+    var native_interval: Int = DEFAULT_NATIVE_INTERVAL
+    var native_view: String = ""
+
     var asset_folder: String = ""
     var asset_url: String = ""
     var asset_storage: String = ""
-
-    var interstitial_interval: Int = DEFAULT_INTERSTITIAL_INTERVAL
-    var native_start: Int = DEFAULT_NATIVE_START
-    var native_interval: Int = DEFAULT_NATIVE_INTERVAL
-    var interstitial_priority: String = DEFAULT_PRIORITY
-
-
-    var home_banner: Boolean = true
-    var home_native: Boolean = true
-    var home_native_view: String = ""
-    var home_priority: String = DEFAULT_PRIORITY
-
-    var detail_banner: Boolean = true
-    var detail_native: Boolean = true
-    var detail_native_view: String = ""
-    var detail_priority: String = DEFAULT_PRIORITY
 
     //Admob
     var admob_banner: String = ""
@@ -57,7 +53,7 @@ class ItemModel : Serializable {
     var applovin_sdk_key: String = ""
     var applovin_banner: String = ""
     var applovin_interstitial: String = ""
-    var applovin_native: String = ""
+    var applovin_merc: String = ""
     var applovin_rewarded_ads: String = ""
     var applovin_open_ads: String = ""
 
