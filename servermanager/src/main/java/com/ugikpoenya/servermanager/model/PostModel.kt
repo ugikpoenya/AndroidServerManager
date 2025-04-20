@@ -1,5 +1,8 @@
 package com.ugikpoenya.servermanager.model
 
+import android.widget.ImageView
+import com.squareup.picasso.Picasso
+import com.ugikpoenya.servermanager.R
 import com.ugikpoenya.servermanager.tools.HtmlListParser
 import java.io.Serializable
 
@@ -19,5 +22,23 @@ class PostModel : Serializable {
 
     fun getContentList(): List<ListItem> {
         return HtmlListParser().parse(post_content.toString())
+    }
+
+    fun showPostImage(imageView: ImageView) {
+        Picasso.get()
+            .load(this.post_image)
+            .placeholder(R.drawable.ic_thumbnail)
+            .error(R.drawable.ic_thumbnail)
+            .fit()
+            .into(imageView)
+    }
+
+    fun showPostThumb(imageView: ImageView) {
+        Picasso.get()
+            .load(this.post_thumb)
+            .placeholder(R.drawable.ic_thumbnail)
+            .error(R.drawable.ic_thumbnail)
+            .fit()
+            .into(imageView)
     }
 }

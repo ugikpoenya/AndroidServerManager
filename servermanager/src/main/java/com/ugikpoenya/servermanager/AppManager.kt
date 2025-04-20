@@ -123,6 +123,8 @@ class AppManager {
                         .load(itemModel.redirect_image_url)
                         .resize(50, 50)
                         .centerCrop()
+                        .placeholder(R.drawable.ic_thumbnail)
+                        .error(R.drawable.ic_thumbnail)
                         .into((dialog.findViewById<ImageView>(R.id.imageView)!!))
                 }
 
