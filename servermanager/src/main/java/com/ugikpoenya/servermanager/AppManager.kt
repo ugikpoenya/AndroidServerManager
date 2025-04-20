@@ -158,4 +158,35 @@ class AppManager {
         }
     }
 
+    fun rateApp(context: Context) {
+        val packageName = (context as Activity).packageName
+        val rateUrl = "https://play.google.com/store/apps/details?id=$packageName"
+        Log.d("LOG", "Open URL $rateUrl")
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(rateUrl))
+        context.startActivity(intent)
+    }
+
+    fun shareApp(context: Context, appName: String?) {
+        val packageName = (context as Activity).packageName
+        val rateUrl = "https://play.google.com/store/apps/details?id=$packageName"
+        val contentShare: String = context.resources.getString(R.string.SHARE_APP_TEXT, appName, rateUrl)
+
+        val sendIntent = Intent()
+        sendIntent.action = Intent.ACTION_SEND
+        sendIntent.putExtra(Intent.EXTRA_TEXT, contentShare)
+        sendIntent.type = "text/plain"
+        context.startActivity(Intent.createChooser(sendIntent, "Share using..."))
+    }
+
+    fun nextApp(context: Context) {
+        val itemModel = ServerPrefs(context).getItemModel()
+        if (itemModel?.more_app.isNullOrEmpty()) {
+            rateApp(context)
+        } else {
+            Log.d("LOG", "Open URL " + itemModel.more_app)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(itemModel.more_app))
+            context.startActivity(intent)
+        }
+    }
+
 }

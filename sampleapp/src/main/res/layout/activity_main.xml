@@ -66,6 +66,35 @@
                 android:onClick="getPostKey"
                 android:text="getPostKey" />
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="shareApp"
+                    android:text="shareApp" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_weight="1"
+                    android:onClick="nextApp"
+                    android:text="nextApp" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="rateApp"
+                    android:text="rateApp" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 

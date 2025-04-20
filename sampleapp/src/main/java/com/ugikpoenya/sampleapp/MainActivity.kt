@@ -51,9 +51,22 @@ class MainActivity : AppCompatActivity() {
         Log.d(LOG, "showPrivacyPolicy")
         AppManager().showPrivacyPolicy(this)
     }
+
     fun initDialogRedirect(view: View) {
         Log.d(LOG, "initDialogRedirect")
         AppManager().initDialogRedirect(this)
+    }
+
+    fun rateApp(view: View) {
+        AppManager().rateApp(this)
+    }
+
+    fun shareApp(view: View) {
+        AppManager().shareApp(this, getString(R.string.app_name))
+    }
+
+    fun nextApp(view: View) {
+        AppManager().nextApp(this)
     }
 
     fun getApiResponse(view: View) {
