@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.ugikpoenya.servermanager.AppManager
 import com.ugikpoenya.servermanager.ServerManager
 import com.ugikpoenya.servermanager.tools.HtmlListParser
 
@@ -38,6 +39,18 @@ class MainActivity : AppCompatActivity() {
         val admob_rewarded_ads = serverManager.getItemKey(this, "admob_rewarded_ads")
         Log.d(LOG, admob_rewarded_ads.toString())
 
+        AppManager().initAppMain(this)
+    }
+
+    fun exitApp(view: View) {
+
+        Log.d(LOG, "exitApp")
+        AppManager().exitApp(this)
+    }
+
+    fun showPrivacyPolicy(view: View) {
+        Log.d(LOG, "showPrivacyPolicy")
+        AppManager().showPrivacyPolicy(this)
     }
 
     fun getApiResponse(view: View) {

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="PRIVACY_POLICY_TITLE">Kebijakan Privasi</string>
+    <string name="PRIVACY_POLICY_CONTENT">
+Dengan menggunakan Aplikasi ini, Anda setuju dengan Persyaratan Ketentuan, Kebijakan Cookie dan Kebijakan Privasi dan menyetujui untuk memiliki data pribadi Anda, perilaku yang ditransfer dan diproses di luar UE.
+    </string>
+    <string name="ACCEPT">TERIMA</string>
+    <string name="DECLINE">TOLAK</string>
+
+    <string name="SHARE_APP_TEXT">Dapatkan aplikasi %1$s di Google Play Store \n %2$s</string>
+
+    <string name="EXIT_TITLE">Keluar Aplikasi</string>
+    <string name="EXIT_MESSAGE">Anda yakin ingin keluar dari aplikasi?</string>
+    <string name="YES">YA</string>
+    <string name="NO">TIDAK</string>
+</resources>

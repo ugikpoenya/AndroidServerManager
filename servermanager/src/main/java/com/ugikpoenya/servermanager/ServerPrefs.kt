@@ -29,4 +29,8 @@ class ServerPrefs(context: Context) {
             null
         }
     }
+
+    var privacy_policy: Boolean
+        get() = prefs.getBoolean("privacy_policy", false)
+        set(value) = prefs.edit().putBoolean("privacy_policy", value).apply()
 }
