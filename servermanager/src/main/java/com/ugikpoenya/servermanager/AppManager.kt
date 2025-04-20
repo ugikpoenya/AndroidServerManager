@@ -17,6 +17,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.net.toUri
+import com.squareup.picasso.Picasso
 
 class AppManager {
     val LOG = "LOG_SERVER_APP"
@@ -118,13 +119,17 @@ class AppManager {
                 if (itemModel.redirect_image_url.isEmpty()) {
                     (dialog.findViewById<ImageView>(R.id.imageView)!!).visibility = GONE
                 } else {
-                    //Picasso.get().load(Prefs(context).ITEM_MODEL.redirect_image_url).resize(50, 50).centerCrop().into((dialog.findViewById(R.id.imageView) as ImageView))
+                    Picasso.get()
+                        .load(itemModel.redirect_image_url)
+                        .resize(50, 50)
+                        .centerCrop()
+                        .into((dialog.findViewById<ImageView>(R.id.imageView)!!))
                 }
 
                 (dialog.findViewById<TextView>(R.id.txtTitle)!!).text = itemModel.redirect_title
                 (dialog.findViewById<TextView>(R.id.txtContent)!!).text = itemModel.redirect_content
 
-                val btnUpdate = dialog.findViewById(R.id.btnUpdate) as Button
+                val btnUpdate: Button = dialog.findViewById(R.id.btnUpdate)
                 val intent = (context as Activity).packageManager.getLaunchIntentForPackage(id)
 
                 if (intent == null) {
