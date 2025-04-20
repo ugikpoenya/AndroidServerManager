@@ -9,6 +9,9 @@ class ItemModel : Serializable {
     val DEFAULT_INTERSTITIAL_DELAY = 0
     val DEFAULT_INTERSTITIAL_DELAY_FIRST = 0
     val DEFAULT_INTERSTITIAL_INTERVAL = 0
+    val DEFAULT_OPENADS_DELAY = 0
+    val DEFAULT_OPENADS_DELAY_FIRST = 0
+
     var DEFAULT_PRIORITY = "0,1,2,3"
 
     //  Application Key
@@ -16,6 +19,9 @@ class ItemModel : Serializable {
     var interstitial_delay_first: Int = DEFAULT_INTERSTITIAL_DELAY_FIRST
     var interstitial_priority: String = DEFAULT_PRIORITY
     var interstitial_interval: Int = DEFAULT_INTERSTITIAL_INTERVAL
+
+    var open_ads_delay: Int = DEFAULT_OPENADS_DELAY
+    var open_ads_delay_first: Int = DEFAULT_OPENADS_DELAY_FIRST
 
     var privacy_policy: String = ""
     var more_app: String = ""
