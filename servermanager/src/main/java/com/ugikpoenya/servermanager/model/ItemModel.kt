@@ -4,12 +4,6 @@ import java.io.Serializable
 
 
 class ItemModel : Serializable {
-    val ORDER_ADMOB: Int = 0
-    val ORDER_FACEBOOK: Int = 1
-    val ORDER_UNITY: Int = 2
-    val ORDER_APPLOVIN: Int = 3
-
-
     val DEFAULT_NATIVE_START = 2
     val DEFAULT_NATIVE_INTERVAL = 8
     val DEFAULT_PRIORITY = "0,1,2,3"
@@ -32,12 +26,8 @@ class ItemModel : Serializable {
     // For Open Ads
     val DEFAULT_OPENADS_DELAY = 0
     val DEFAULT_OPENADS_DELAY_FIRST = 0
-    val DEFAULT_OPENADS_INTERVAL = 0
     var open_ads_delay: Int = DEFAULT_OPENADS_DELAY
     var open_ads_delay_first: Int = DEFAULT_OPENADS_DELAY_FIRST
-    var open_ads_priority: String = DEFAULT_PRIORITY
-    var open_ads_interval: Int = DEFAULT_OPENADS_INTERVAL
-    var open_ads_interval_counter: Int = 0
     var open_ads_last_shown_time: Long = 0
 
     // For Rewarded Ads
