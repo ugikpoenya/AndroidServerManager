@@ -4,9 +4,15 @@ import java.io.Serializable
 
 
 class ItemModel : Serializable {
+    val ORDER_ADMOB: Int = 0
+    val ORDER_FACEBOOK: Int = 1
+    val ORDER_UNITY: Int = 2
+    val ORDER_APPLOVIN: Int = 3
+
+
     val DEFAULT_NATIVE_START = 2
     val DEFAULT_NATIVE_INTERVAL = 8
-    var DEFAULT_PRIORITY = "0,1,2,3"
+    val DEFAULT_PRIORITY = "0,1,2,3"
 
     //  Application Key
 
