@@ -24,6 +24,14 @@ class ServerPrefs(context: Context) {
         get() = prefs.getLong("open_ads_last_shown_time", 0).toLong()
         set(value) = prefs.edit { putLong("open_ads_last_shown_time", value) }
 
+    var interstitial_last_shown_time: Long
+        get() = prefs.getLong("interstitial_last_shown_time", 0).toLong()
+        set(value) = prefs.edit { putLong("interstitial_last_shown_time", value) }
+
+    var rewarded_ads_last_shown_time: Long
+        get() = prefs.getLong("rewarded_ads_last_shown_time", 0).toLong()
+        set(value) = prefs.edit { putLong("rewarded_ads_last_shown_time", value) }
+
     fun getItemModel(): ItemModel? {
         return try {
             val response = prefs.getString("RESPONSE", "").toString()

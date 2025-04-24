@@ -19,6 +19,7 @@ class ItemModel : Serializable {
     var interstitial_delay_first: Int = DEFAULT_INTERSTITIAL_DELAY_FIRST
     var interstitial_priority: String = DEFAULT_PRIORITY
     var interstitial_interval: Int = DEFAULT_INTERSTITIAL_INTERVAL
+    var interstitial_interval_first: Int = 0
     var interstitial_interval_counter: Int = 0
     var interstitial_last_shown_time: Long = 0
 
@@ -38,6 +39,7 @@ class ItemModel : Serializable {
     var rewarded_ads_delay_first: Int = DEFAULT_REWARDED_ADS_DELAY_FIRST
     var rewarded_ads_priority: String = DEFAULT_PRIORITY
     var rewarded_ads_interval: Int = DEFAULT_REWARDED_ADS_INTERVAL
+    var rewarded_ads_interval_first: Int = 0
     var rewarded_ads_interval_counter: Int = 0
     var rewarded_ads_last_shown_time: Long = 0
 
