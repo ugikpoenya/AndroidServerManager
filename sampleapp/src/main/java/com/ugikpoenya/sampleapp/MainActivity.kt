@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.ugikpoenya.servermanager.AppManager
 import com.ugikpoenya.servermanager.ServerManager
+import com.ugikpoenya.servermanager.ServerPrefs
 import com.ugikpoenya.servermanager.tools.HtmlListParser
 
 class MainActivity : AppCompatActivity() {
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val admob_rewarded_ads = serverManager.getItemKey(this, "admob_rewarded_ads")
+        val admob_rewarded_ads = ServerPrefs(this).getItemKey("admob_rewarded_ads")
         Log.d(LOG, admob_rewarded_ads.toString())
 
         AppManager().initAppMain(this)

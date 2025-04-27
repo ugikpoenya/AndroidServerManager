@@ -55,18 +55,6 @@ class ServerManager {
         }
     }
 
-    fun getItemKey(context: Context, key: String): String? {
-        try {
-            val jsonObject = JSONObject(ServerPrefs(context).RESPONSE)
-            val item = jsonObject.getJSONObject("item")
-            return item.getString(key.trim())
-        } catch (e: Exception) {
-            Log.d(LOG, "Error : " + e.message)
-            return null
-        }
-    }
-
-
     //POST MODULE
     fun getPostsResponse(context: Context, function: (postModelArrayList: ArrayList<PostModel>?) -> (Unit)) {
         val queue = Volley.newRequestQueue(context)

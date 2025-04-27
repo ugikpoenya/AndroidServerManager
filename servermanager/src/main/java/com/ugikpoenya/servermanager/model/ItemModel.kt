@@ -50,6 +50,7 @@ class ItemModel : Serializable {
     var native_start: Int = DEFAULT_NATIVE_START
     var native_interval: Int = DEFAULT_NATIVE_INTERVAL
     var native_view: String = ""
+    var native_tab_position: String = "0,1,2"
 
     var asset_folder: String = ""
     var asset_url: String = ""

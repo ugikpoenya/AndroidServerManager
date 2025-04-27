@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.ugikpoenya.servermanager.model.ApiResponseModel
 import com.ugikpoenya.servermanager.model.ItemModel
 import androidx.core.content.edit
+import org.json.JSONObject
 
 class ServerPrefs(context: Context) {
     val prefs: SharedPreferences = context.getSharedPreferences(context.packageName, 0)
@@ -40,6 +41,18 @@ class ServerPrefs(context: Context) {
         } catch (e: Exception) {
             Log.d("LOG_SERVER_PREFS", "Error : " + e.message)
             null
+        }
+    }
+
+    fun getItemKey(key: String): String? {
+        try {
+            val response = prefs.getString("RESPONSE", "").toString()
+            val jsonObject = JSONObject(response)
+            val item = jsonObject.getJSONObject("item")
+            return item.getString(key.trim())
+        } catch (e: Exception) {
+            Log.d("LOG_SERVER_PREFS", "Error : " + e.message)
+            return null
         }
     }
 
