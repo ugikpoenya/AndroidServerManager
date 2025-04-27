@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getPostKey(view: View) {
-        val key = "EAXPhBxVnYmm8PLi8Hof"
+        val key = "FuAmbqjv8X9QRAxD69Il"
         Log.d(LOG, "getPostKey $key")
         serverManager.getPostKey(this, key) { postModel ->
             Log.d(LOG, postModel?.key.toString() + " => " + postModel?.post_title.toString() + " => " + postModel?.post_image.toString())

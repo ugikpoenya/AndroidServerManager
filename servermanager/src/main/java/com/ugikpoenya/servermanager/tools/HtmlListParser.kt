@@ -15,6 +15,7 @@ class HtmlListParser {
         val result = mutableListOf<ListItem>()
         for (li in element.select("> li")) {
             val text = li.ownText().trim()
+            if (text.startsWith("//")) continue  // abaikan komentar
             val nestedList = li.selectFirst("ul, ol")?.let { parseList(it) } ?: listOf()
             result.add(ListItem(text, nestedList))
         }
