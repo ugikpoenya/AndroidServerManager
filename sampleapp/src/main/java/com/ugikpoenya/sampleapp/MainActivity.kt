@@ -1,8 +1,12 @@
 package com.ugikpoenya.sampleapp
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +15,13 @@ import androidx.core.view.WindowInsetsCompat
 import com.ugikpoenya.servermanager.AppManager
 import com.ugikpoenya.servermanager.ServerManager
 import com.ugikpoenya.servermanager.ServerPrefs
+import com.ugikpoenya.servermanager.tools.DownloadCallback
 import com.ugikpoenya.servermanager.tools.HtmlListParser
+import com.ugikpoenya.servermanager.tools.VolleyDownload
+import com.ugikpoenya.servermanager.tools.isDirectDownload
+import java.io.File
+import java.net.URLDecoder
+import java.nio.charset.StandardCharsets
 
 class MainActivity : AppCompatActivity() {
     val LOG = "LOG_SERVER_SAMPLE"
@@ -150,6 +160,58 @@ class MainActivity : AppCompatActivity() {
             }
             if (list !== null) {
                 HtmlListParser().print(list)
+            }
+        }
+    }
+
+    fun downloadFile(view: View) {
+        val fileDownload = "https://www.mediafire.com/file_premium/coe0otr6b7ez4f4/Basuri_Mengular_V1.mp3"
+        val dirPath = Environment.getExternalStorageDirectory().path + "/" + Environment.DIRECTORY_DOWNLOADS
+        val file = File(fileDownload)
+        var filePath = URLDecoder.decode(file.name, StandardCharsets.UTF_8.toString())
+        filePath = filePath.substringBefore("?")
+        filePath = filePath.replace("/", "_")
+        filePath = dirPath + "/" + filePath
+        val fileStorage = File(filePath)
+
+        if (fileStorage.exists()) {
+            if (fileStorage.delete()) {
+                Log.d(LOG, "FilePath Exist Deleted : ${filePath}")
+            } else {
+                Log.e(LOG, "FilePath Exist Failed To Deleted : ${filePath}")
+            }
+        } else {
+            isDirectDownload(fileDownload) { isFile ->
+                if (isFile) {
+                    // Lanjutkan download pakai library kamu (misalnya PRDownloader, DownloadManager, dsb)
+
+                    VolleyDownload(this, fileDownload, filePath, object : DownloadCallback {
+                        override fun onProgressUpdate(progress: Int) {
+                            runOnUiThread {
+                                Log.d(LOG, "Progress ${progress}%")
+                            }
+                        }
+
+                        override fun onDownloadComplete(filePath: String) {
+                            runOnUiThread {
+                                Log.d(LOG, filePath)
+                                Toast.makeText(applicationContext, "Download completed!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                        override fun onDownloadFailed(errorMessage: String) {
+                            runOnUiThread {
+                                Log.e(LOG, "Error: ${errorMessage}")
+                                Toast.makeText(applicationContext, "Download failed!", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    })
+                } else {
+                    // Buka browser
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(fileDownload))
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
             }
         }
     }

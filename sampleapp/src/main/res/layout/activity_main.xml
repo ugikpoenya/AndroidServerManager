@@ -95,6 +95,12 @@
                     android:text="rateApp" />
             </LinearLayout>
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="downloadFile"
+                android:text="downloadFile" />
+
         </LinearLayout>
     </ScrollView>
 
