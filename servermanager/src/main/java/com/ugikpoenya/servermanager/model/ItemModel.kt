@@ -20,7 +20,7 @@ class ItemModel : Serializable {
     var interstitial_priority: String = DEFAULT_PRIORITY
     var interstitial_interval: Int = DEFAULT_INTERSTITIAL_INTERVAL
     var interstitial_interval_first: Int = 0
-    var interstitial_interval_counter: Int = 0
+    var interstitial_interval_counter: Int? = null
     var interstitial_last_shown_time: Long = 0
 
 
