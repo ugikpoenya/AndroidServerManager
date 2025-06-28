@@ -33,6 +33,16 @@ class ServerPrefs(context: Context) {
         get() = prefs.getLong("rewarded_ads_last_shown_time", 0).toLong()
         set(value) = prefs.edit { putLong("rewarded_ads_last_shown_time", value) }
 
+    fun getApiResponseModel(): ApiResponseModel? {
+        return try {
+            val response = prefs.getString("RESPONSE", "").toString()
+            Gson().fromJson(response, ApiResponseModel::class.java)
+        } catch (e: Exception) {
+            Log.d("LOG_SERVER_PREFS", "Error : " + e.message)
+            null
+        }
+    }
+
     fun getItemModel(): ItemModel? {
         return try {
             val response = prefs.getString("RESPONSE", "").toString()
