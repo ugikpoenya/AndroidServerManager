@@ -6,4 +6,5 @@ class CategoryModel  : Serializable {
     var category_key: String? = null
     var category: String? = null
     var title: String? = null
+    var posts: ArrayList<PostModel>? = null
 }
